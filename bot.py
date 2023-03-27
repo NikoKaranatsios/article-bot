@@ -20,18 +20,24 @@ question_list = [
 # Loop through the array of questions and send a request to the model for each question
 while True:
     current_time = datetime.datetime.now()
-    if current_time.hour == 8 and current_time.minute == 0:
-        for question in question_list:
-            prompt = f"Question: {question}\nAnswer:"
-            response = openai.Completion.create(
-                engine=model_engine,
-                prompt=prompt,
-                max_tokens=1000,
-                n=1,
-                stop=None,
-                temperature=0.5,
-            )
+    target_time = datetime.datetime(current_time.year, current_time.month, current_time.day, 8, 0, 0)
 
-            # Print the model's response to the question
-            print(f"Q: {question}\nA: {response.choices[0].text}")
-    time.sleep(60)
+    if current_time >= target_time:
+        target_time += datetime.timedelta(days=1)
+
+    time_to_wait = (target_time - current_time).seconds
+    time.sleep(time_to_wait)
+
+    for question in question_list:
+        prompt = f"Question: {question}\nAnswer:"
+        response = openai.Completion.create(
+            engine=model_engine,
+            prompt=prompt,
+            max_tokens=1000,
+            n=1,
+            stop=None,
+            temperature=0.5,
+        )
+
+        # Print the model's response to the question
+        print(f"Q: {question}\nA: {response.choices[0].text}")
