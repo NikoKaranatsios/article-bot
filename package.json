@@ -1,6 +1,6 @@
 {
   "name": "article-bot",
-  "type": "commonjs",
+  "type": "module",
   "version": "1.0.0",
   "description": "post a new article every day",
   "main": "index.js",
@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/NikoKaranatsios/article-bot#readme",
   "dependencies": {
+    "dotenv": "^16.0.3",
     "openai": "^3.2.1"
   }
 }

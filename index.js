@@ -1,10 +1,16 @@
-import { Configuration, OpenAIApi } from "openai";
-const configuration = new Configuration({
-  organization: "org-EhRcnFN06RPOnNAkNz1JgZin",
-  apiKey: process.env.OPENAI_API_KEY,
-});
+import { generateArticleWithAI } from "./generateArticleWithAI.js";
+import { TOPICS } from "./topics.js";
+import { config } from "dotenv";
+config();
 
-const openai = new OpenAIApi(configuration);
-const response = await openai.listEngines({});
+console.log(process.env.OPENAI_API_KEY);
 
-console.log(response.data);
+const currentTopicIndex = 0;
+
+if (currentTopicIndex < TOPICS.length) {
+  // const article = await generateArticleWithAI(TOPICS[currentTopicIndex]);
+  const article = "This is a test article";
+  console.log(article);
+} else {
+  console.log("No more topics");
+}
