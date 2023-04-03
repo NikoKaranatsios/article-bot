@@ -2,14 +2,15 @@ import { Configuration, OpenAIApi } from "openai";
 
 const configuration = new Configuration({
   organization: "org-EhRcnFN06RPOnNAkNz1JgZin",
-  apiKey: "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",
+  apiKey: process.env.OPENAI_ACCESS_TOKEN,
 });
 const openai = new OpenAIApi(configuration);
 
 export async function generateArticleWithAI(topic) {
   const message = {
     role: "user",
-    content: topic.contnet,
+    content:
+      topic.contnet + "\n\n Please use the following format:" + topic.format,
   };
 
   const completion = await openai.createChatCompletion({
@@ -18,8 +19,14 @@ export async function generateArticleWithAI(topic) {
   });
 
   const content = completion.data.choices[0].message;
-  const article = content.concat("\n\n", "...");
-  article.concat("\n\n", "written by: ", "https://openai.com");
+  const articleBody = content.concat("\n\n", "...");
+  articleBody.concat("\n\n", "written by: ", "https://openai.com");
+
+  const article = {
+    title: topic.name,
+    contentFormat: topic.format,
+    content: articleBody,
+  };
 
   return article;
 }
