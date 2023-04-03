@@ -5,6 +5,10 @@ config();
 const mediumBaseURL = "https://api.medium.com/v1";
 const accessToken = process.env.MEDIUM_ACCESS_TOKEN;
 
+/**
+ *
+ * @returns {Promise<JSON>} the user information
+ */
 export async function getUserInformationAsync() {
   const response = await fetch(`${mediumBaseURL}/me`, {
     method: "GET",
