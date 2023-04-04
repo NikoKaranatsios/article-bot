@@ -14,7 +14,7 @@ async function generateArticle() {
       "Generating new article. Topic: ",
       TOPICS[currentTopicIndex].name
     );
-    if (currentTopicIndex < TOPICS.length) {
+    if (currentTopicIndex <= TOPICS.length) {
       const article = await generateArticleWithAI(TOPICS[currentTopicIndex]);
       await postArticleAsync(article);
       currentTopicIndex++;
