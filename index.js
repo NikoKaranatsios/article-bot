@@ -26,8 +26,4 @@ async function generateArticle() {
 }
 
 console.log("Starting to generate articles...");
-// insert some console art here
-console.log(":::::::::::::::::::::::::::;::::::::::::::::::::::");
-console.log(":::::::::::::::::::::::::::;::::::::::::::::::::::");
-console.log("Press Ctrl + C to stop");
 await generateArticle();
