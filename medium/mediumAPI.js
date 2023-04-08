@@ -41,6 +41,8 @@ export async function postArticleAsync(article) {
     body: JSON.stringify(article),
   });
 
+  console.log(article);
+  console.log(await response.json());
   return response.json();
 }
 

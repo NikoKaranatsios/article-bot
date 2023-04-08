@@ -12,17 +12,21 @@ export async function generateArticleWithAI(topic) {
   const message = {
     role: "user",
     content:
-      topic.contnet + "\n\n Please use the following format:" + topic.format,
+      topic.contnet + "\n\n Please use the following format: " + topic.format,
   };
 
-  const completion = await openai.createChatCompletion({
-    model: "gpt-3.5-turbo",
-    messages: [message],
-  });
+  const content = await openai
+    .createChatCompletion({
+      model: "gpt-3.5-turbo",
+      messages: [message],
+    })
+    .then((res) => res.data.choices[0].message)
+    .catch((err) => {
+      throw new Error(err);
+    });
 
-  const content = completion.data.choices[0].message;
-  const articleBody = content.concat("\n\n", "...");
-  articleBody.concat("\n\n", "written by: ", "https://openai.com");
+  let articleBody = content.concat("\n\n", "...");
+  articleBody = articleBody.concat("\n", "written by: ", "https://openai.com");
 
   const article = {
     title: topic.name,
