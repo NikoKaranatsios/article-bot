@@ -1,5 +1,7 @@
 # Use Node.js version 14 as the base image
 FROM node:14
+RUN ["apt-get", "update"]
+RUN ["apt-get", "install", "-y", "vim"]
 
 # Set the working directory in the container
 WORKDIR /app
