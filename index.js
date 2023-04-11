@@ -38,7 +38,7 @@ async function generateArticle() {
     } else {
       log("No more topics");
     }
-  }, 86400);
+  }, 86400000);
 }
 
 log("---------------------------------");
