@@ -9,7 +9,8 @@ let currentTopicIndex = 0;
 function log(message) {
   const date = new Date();
   const logMessage = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}, ${date.getUTCHours()}:${date.getUTCMinutes()}:${date.getUTCSeconds()}:: ${message} \r`;
-  fs.appendFileSync("log.txt", logMessage);
+  // fs.appendFileSync("log.txt", logMessage);
+  console.log(logMessage);
 }
 
 async function generateArticle() {
@@ -23,6 +24,12 @@ async function generateArticle() {
       try {
         // generate article
         const article = await generateArticleWithAI(TOPICS[currentTopicIndex]);
+
+        log("Logging article to file");
+        await fs.writeFileSync(
+          `./medium/articles/${TOPICS[currentTopicIndex].file}`,
+          article.content
+        );
 
         // post article
         log("Posting article to medium...");
@@ -38,11 +45,9 @@ async function generateArticle() {
     } else {
       log("No more topics");
     }
-  }, 86400000);
+  }, 90000000);
 }
 
 log("---------------------------------");
 log("Starting to generate articles...");
-console.log("Starting to generate articles...");
-console.log("check log.txt for more information...");
 await generateArticle();
