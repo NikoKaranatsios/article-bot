@@ -40,7 +40,8 @@ async function generateArticle() {
         currentTopicIndex = currentTopicIndex++;
         generateArticle();
       } catch (error) {
-        log(error.message);
+        log("Error generating article: ", error.message);
+        generateArticle();
       }
     } else {
       log("No more topics");
